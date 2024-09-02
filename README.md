@@ -1,5 +1,5 @@
 # tp_auto_prod
 
 ## Binôme:
-Baudson Dylan
-Pedretti Zack
+- Baudson Dylan
+- Pedretti Zack
