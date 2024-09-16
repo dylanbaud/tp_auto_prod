@@ -9,32 +9,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout codes
       uses: actions/checkout@v3
-
-    - name: Set up PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.1'
 
     - name: Install dependencies
       uses: php-actions/composer@v6
-      with:
-        command: install
 
-    - name: Install PHPUnit
-      run: composer require --dev phpunit/phpunit
-
-    - name: Run PHPUnit tests with Cobertura coverage
-      run: ./vendor/bin/phpunit --coverage-clover coverage.xml
-
-    - name: Upload Cobertura coverage report
-      uses: actions/upload-artifact@v3
-      with:
-        name: coverage-xml
-        path: coverage.xml
-
-    - name: Upload coverage report to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        files: coverage.xml
+    - name: Run PHPUnit 
+      uses: php-actions/phpunit@v3
