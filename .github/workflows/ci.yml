@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  build-test:
+  Explore-GitHub-Actions:
     runs-on: ubuntu-latest
 
     steps:
