@@ -18,5 +18,4 @@ jobs:
       - name: Run PHPUnit
         uses: php-actions/phpunit@v3
         with:
-          phpunit-xml: phpunit.xml
           php_extensions: gd, mbstring, json, pdo, xml, zip, dom, sqlite3
