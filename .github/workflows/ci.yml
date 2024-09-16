@@ -10,6 +10,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - uses: php-actions/composer@v6 # or alternative dependency management
+    - uses: php-actions/composer@v6 # ou alternative pour la gestion des dépendances
     - uses: php-actions/phpunit@v3
-    # ... then your own project steps ...
+      with:
+        args: --coverage-text --configuration phpunit.xml
