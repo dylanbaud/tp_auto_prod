@@ -1,4 +1,4 @@
-name: GitHub Actions Test
+name: CI
 on:
   push:
   pull_request:
@@ -17,3 +17,6 @@ jobs:
         with:
           php_extensions: gd mbstring sqlite3 simplexml xdebug
           configuration: ./phpunit.xml
+
+      - name: Run PHPUnit tests with coverage
+        run: vendor/bin/phpunit --coverage-text
