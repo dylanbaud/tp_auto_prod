@@ -15,21 +15,12 @@ jobs:
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.1'
+        php-version: '8.1' # ou la version PHP que vous utilisez
 
     - name: Install dependencies
       uses: php-actions/composer@v6
       with:
         command: install
-
-    - name: Run PHPUnit tests with text coverage
-      run: phpunit --coverage-text > coverage.txt
-
-    - name: Upload text coverage report
-      uses: actions/upload-artifact@v3
-      with:
-        name: coverage-text
-        path: coverage.txt
 
     - name: Run PHPUnit tests with Cobertura coverage
       run: phpunit --coverage-clover coverage.xml
@@ -40,7 +31,7 @@ jobs:
         name: coverage-xml
         path: coverage.xml
 
-    - name: Upload coverage summary
-      uses: irongut/CodeCoverageSummary@v1
+    - name: Upload coverage report to Codecov
+      uses: codecov/codecov-action@v3
       with:
-        coverage-file: coverage.xml
+        files: coverage.xml
