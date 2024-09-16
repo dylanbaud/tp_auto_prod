@@ -1,6 +1,6 @@
 name: CI
 
-on: 
+on:
   push:
   pull_request:
 
@@ -9,19 +9,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.1'
-        extensions: gd, mbstring, json, pdo, xml, zip, dom, sqlite3
+      - name: Install dependencies
+        uses: php-actions/composer@v6
 
-    - name: Install dependencies
-      uses: php-actions/composer@v6
-
-    - name: Run PHPUnit
-      uses: php-actions/phpunit@v3
-      with:
-        phpunit-xml: phpunit.xml
+      - name: Run PHPUnit
+        uses: php-actions/phpunit@v3
+        with:
+          phpunit-xml: phpunit.xml
+          php_extensions: gd, mbstring, json, pdo, xml, zip, dom, sqlite3
