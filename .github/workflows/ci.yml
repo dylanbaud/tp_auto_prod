@@ -1,22 +1,19 @@
-name: CI
-
+name: GitHub Actions Test
 on:
   push:
   pull_request:
-
 jobs:
-  build-test:
+  Explore-GitHub-Actions:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
+      - name: Checkout le code
         uses: actions/checkout@v3
 
-      - name: Install dependencies
+      - name: Installation de Composer
         uses: php-actions/composer@v6
 
-      - name: Run PHPUnit
+      - name: Installation des dépendances
         uses: php-actions/phpunit@v3
         with:
-          php_extensions: gd, mbstring, sqlite3
-          configuration: phpunit.xml
+          php_extensions: gd mbstring sqlite3 simplexml xdebug
+          configuration: ./phpunit.xml
