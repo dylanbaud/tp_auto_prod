@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  Explore-GitHub-Actions:
+  build-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,3 +19,4 @@ jobs:
         uses: php-actions/phpunit@v3
         with:
           php_extensions: gd, mbstring, sqlite3
+          configuration: phpunit.xml
