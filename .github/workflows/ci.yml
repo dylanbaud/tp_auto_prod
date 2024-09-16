@@ -9,8 +9,38 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - uses: php-actions/composer@v6 # ou alternative pour la gestion des dépendances
-    - uses: php-actions/phpunit@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
       with:
-        args: --coverage-text --configuration phpunit.xml
+        php-version: '8.1'
+
+    - name: Install dependencies
+      uses: php-actions/composer@v6
+      with:
+        command: install
+
+    - name: Run PHPUnit tests with text coverage
+      run: phpunit --coverage-text > coverage.txt
+
+    - name: Upload text coverage report
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage-text
+        path: coverage.txt
+
+    - name: Run PHPUnit tests with Cobertura coverage
+      run: phpunit --coverage-clover coverage.xml
+
+    - name: Upload Cobertura coverage report
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage-xml
+        path: coverage.xml
+
+    - name: Upload coverage summary
+      uses: irongut/CodeCoverageSummary@v1
+      with:
+        coverage-file: coverage.xml
