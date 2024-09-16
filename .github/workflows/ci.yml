@@ -15,15 +15,18 @@ jobs:
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.1' # ou la version PHP que vous utilisez
+        php-version: '8.1'
 
     - name: Install dependencies
       uses: php-actions/composer@v6
       with:
         command: install
 
+    - name: Install PHPUnit
+      run: composer require --dev phpunit/phpunit
+
     - name: Run PHPUnit tests with Cobertura coverage
-      run: phpunit --coverage-clover coverage.xml
+      run: ./vendor/bin/phpunit --coverage-clover coverage.xml
 
     - name: Upload Cobertura coverage report
       uses: actions/upload-artifact@v3
