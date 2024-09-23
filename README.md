@@ -19,7 +19,12 @@ Cette action permet de cloner le dépôt Git dans l'environnement d'exécution. 
 Cette action exécute Composer, un gestionnaire de dépendances pour PHP. Elle installe les bibliothèques nécessaires définies dans le fichier composer.json du projet. C'est utile pour s'assurer que toutes les dépendances du projet sont installées avant de passer à l'étape suivante.
 
 - php-actions/phpunit@v3 :
-Cette action exécute PHPUnit, un framework de test pour PHP. Elle permet de lancer les tests automatisés définis dans le projet afin de vérifier que le code fonctionne correctement et ne casse pas les fonctionnalités existantes.
+Cette action exécute PHPUnit, un framework de test pour PHP. Elle permet de lancer les tests automatisés définis dans le projet afin de vérifier que le code fonctionne correctement et ne casse pas les fonctionnalités existantes. Voici les principales configurations utilisées dans cette étape :
+    - php_extensions : Installe les extensions PHP nécessaires, telles que gd, mbstring, sqlite3, simplexml, et xdebug (pour la couverture de code).
+    - configuration : Utilise le fichier phpunit.xml pour configurer PHPUnit, définissant ainsi les tests à exécuter et les options spécifiques.
+    - bootstrap : Spécifie le fichier Bootstrap.php situé dans le répertoire tst, qui est exécuté avant le lancement des tests pour configurer l'environnement ou initialiser certaines ressources.
+    - version : Définit la version de PHPUnit à utiliser, ici la version 9.
+    - php_version : Utilise PHP 8.1 pour l'exécution des tests, garantissant que le projet est testé sur une version PHP moderne.
 ```
 
 ## 2. Code coverage
