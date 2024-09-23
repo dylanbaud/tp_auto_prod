@@ -1,11 +1,17 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+use PrivateBin\Controller;
+use PrivateBin\Data\Database;
+use PrivateBin\Data\Filesystem;
+use PrivateBin\Persistence\ServerSalt;
 
 class DatabaseTest extends TestCase
 {
     private $_model;
+
     private $_path;
+
     private $_options = array(
         'dsn' => 'sqlite::memory:',
         'usr' => null,
@@ -18,14 +24,6 @@ class DatabaseTest extends TestCase
         /* Setup Routine */
         $this->_path  = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'privatebin_data';
         $this->_model = new Database($this->_options);
-
-        // Ensure the data directory exists
-        if (!is_dir('data')) {
-            mkdir('data');
-        }
-
-        // Create the salt.php file
-        file_put_contents('data/salt.php', '<?php // salt data');
     }
 
     public function tearDown(): void
