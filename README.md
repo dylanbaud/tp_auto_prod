@@ -1,10 +1,10 @@
-## TP Automatisation
+# TP Automatisation
 
-# Binôme:
+## Binôme:
 - Baudson Dylan
 - Pedretti Zack
 
-# 1. Les tests
+## 1. Les tests
 
 ```
 Les actions GITHUB permettent de lancer des tests lors de l'action de notre choix (push, pull requests etc...).
@@ -20,5 +20,6 @@ Cette action exécute Composer, un gestionnaire de dépendances pour PHP. Elle i
 
 - php-actions/phpunit@v3 :
 Cette action exécute PHPUnit, un framework de test pour PHP. Elle permet de lancer les tests automatisés définis dans le projet afin de vérifier que le code fonctionne correctement et ne casse pas les fonctionnalités existantes.
+```
 
-# 2. Code coverage
+## 2. Code coverage
