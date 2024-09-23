@@ -20,11 +20,3 @@ jobs:
           bootstrap: ./tst/Bootstrap.php
           version: 9
           php_version: '8.1'
-
-      - name: Installation de CodeCoverageSummary
-        run: composer global require irongut/code-coverage-summary
-
-      - name: Génération du rapport de couverture de code
-        run: |
-          ./vendor/bin/phpunit --coverage-clover=coverage.xml
-          ~/.composer/vendor/bin/code-coverage-summary clover coverage.xml
