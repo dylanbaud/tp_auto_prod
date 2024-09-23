@@ -18,5 +18,8 @@ jobs:
           php_extensions: gd mbstring sqlite3 simplexml xdebug
           configuration: ./phpunit.xml
 
-      - name: Run PHPUnit tests with coverage
-        run: vendor/bin/phpunit --coverage-text
+      - name: Set Xdebug mode
+        run: echo "XDEBUG_MODE=coverage" >> $GITHUB_ENV
+
+      - name: Run PHPUnit tests
+        run: vendor/bin/phpunit --test-suffix Test.php --test-suffix Spec.php
