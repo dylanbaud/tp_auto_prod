@@ -1,25 +1,22 @@
 name: CI
-
 on:
   push:
   pull_request:
-
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
+      - name: Checkout le code
         uses: actions/checkout@v3
 
-      - name: Mise en place de PHP
-        uses: shivammathur/setup-php@v2
+      - name: Installation de Composer
+        uses: php-actions/composer@v6
+
+      - name: Lancement des tests PHPUnit
+        uses: php-actions/phpunit@v3
         with:
-          php-version: '8.1'
-          extensions: gd, mbstring, sqlite3, simplexml, xdebug
-
-      - name: Installation des dépendances
-        run: composer install --no-progress --no-suggest
-
-      - name: Run PHPUnit tests with coverage
-        run: vendor/bin/phpunit --coverage-text
+          php_extensions: gd mbstring sqlite3 simplexml xdebug
+          configuration: ./phpunit.xml
+          bootstrap: ./tst/Bootstrap.php
+          version: 9
+          php_version: '8.1'
