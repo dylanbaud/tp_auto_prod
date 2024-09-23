@@ -23,3 +23,8 @@ jobs:
 
       - name: Génération du rapport de couverture de code
         run: ./vendor/bin/phpunit --coverage-clover=coverage.xml
+
+      - name: Envoi du rapport de couverture de code à Codecov
+        uses: irongut/CodeCoverageSummary@v1.3.0
+        with:
+          filename: 'coverage.xml'
