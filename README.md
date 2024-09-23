@@ -23,3 +23,6 @@ Cette action exécute PHPUnit, un framework de test pour PHP. Elle permet de lan
 ```
 
 ## 2. Code coverage
+
+```
+
