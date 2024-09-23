@@ -1,25 +1,25 @@
 name: CI
+
 on:
   push:
   pull_request:
+
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout le code
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Installation de Composer
-        uses: php-actions/composer@v6
+      - name: Mise en place de PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: gd, mbstring, sqlite3, simplexml, xdebug
 
       - name: Installation des dépendances
-        uses: php-actions/phpunit@v3
-        with:
-          php_extensions: gd mbstring sqlite3 simplexml xdebug
-          configuration: ./phpunit.xml
+        run: composer install --no-progress --no-suggest
 
-      - name: Set Xdebug mode
-        run: echo "XDEBUG_MODE=coverage" >> $GITHUB_ENV
-
-      - name: Run PHPUnit tests
-        run: vendor/bin/phpunit --test-suffix Test.php --test-suffix Spec.php
+      - name: Run PHPUnit tests with coverage
+        run: vendor/bin/phpunit --coverage-text
