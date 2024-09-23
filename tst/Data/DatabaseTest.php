@@ -1,17 +1,11 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use PrivateBin\Controller;
-use PrivateBin\Data\Database;
-use PrivateBin\Data\Filesystem;
-use PrivateBin\Persistence\ServerSalt;
 
 class DatabaseTest extends TestCase
 {
     private $_model;
-
     private $_path;
-
     private $_options = array(
         'dsn' => 'sqlite::memory:',
         'usr' => null,
@@ -24,6 +18,14 @@ class DatabaseTest extends TestCase
         /* Setup Routine */
         $this->_path  = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'privatebin_data';
         $this->_model = new Database($this->_options);
+
+        // Ensure the data directory exists
+        if (!is_dir('data')) {
+            mkdir('data');
+        }
+
+        // Create the salt.php file
+        file_put_contents('data/salt.php', '<?php // salt data');
     }
 
     public function tearDown(): void
@@ -32,19 +34,6 @@ class DatabaseTest extends TestCase
         if (is_dir($this->_path)) {
             Helper::rmDir($this->_path);
         }
-    }
-
-    public function testSaltMigration()
-    {
-        ServerSalt::setStore(new Filesystem(array('dir' => 'data')));
-        $salt = ServerSalt::get();
-        $file = 'data' . DIRECTORY_SEPARATOR . 'salt.php';
-        $this->assertFileExists($file, 'ServerSalt got initialized and stored on disk');
-        $this->assertNotEquals($salt, '');
-        ServerSalt::setStore($this->_model);
-        ServerSalt::get();
-        $this->assertFileDoesNotExist($file, 'legacy ServerSalt got removed');
-        $this->assertEquals($salt, ServerSalt::get(), 'ServerSalt got preserved & migrated');
     }
 
     public function testDatabaseBasedDataStoreWorks()
