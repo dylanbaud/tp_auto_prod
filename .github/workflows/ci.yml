@@ -1,27 +1,32 @@
 name: CI
+
 on:
   push:
   pull_request:
+
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout le code
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Installation de Composer
-        uses: php-actions/composer@v6
-
-      - name: Lancement des tests PHPUnit
-        uses: php-actions/phpunit@v3
+      - name: Mise en place de PHP
+        uses: shivammathur/setup-php@v2
         with:
-          php_extensions: gd mbstring sqlite3 simplexml xdebug
-          configuration: ./phpunit.xml
-          bootstrap: ./tst/Bootstrap.php
-          version: 9
-          php_version: '8.1'
+          php-version: '8.1'
+          extensions: gd, sqlite3, dom, json, libxml, mbstring, tokenizer, xml ,xmlwriter, zip, xdebug
 
-      - name: Code Coverage Summary Report
+      - name: Installation des dépendances
+        run: composer install --no-progress --no-suggest
+
+      - name: Lancement de PHPUnit avec Xdebug
+        run: vendor/bin/phpunit
+        env:
+          XDEBUG_MODE: coverage
+
+      - name: Creation du rapport de couverture de code
         uses: irongut/CodeCoverageSummary@v1.3.0
         with:
           filename: log/cobertura.xml
@@ -29,5 +34,5 @@ jobs:
           format: markdown
           output: both
 
-      - name: ✅ Exporting coverage to action summary
+      - name: Exportation du rapport de couverture de code
         run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
