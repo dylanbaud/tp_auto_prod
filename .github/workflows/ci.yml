@@ -12,6 +12,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Installation des dépendances
+        run: composer install --no-progress --no-suggest
+
       - name: Lancement de PHPUnit
         uses: php-actions/phpunit@v3
         with:
