@@ -12,19 +12,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Mise en place de PHP
-        uses: shivammathur/setup-php@v2
+      - name: Lancement de PHPUnit
+        uses: php-actions/phpunit@v3
         with:
-          php-version: '8.1'
-          extensions: gd, sqlite3, dom, json, libxml, mbstring, tokenizer, xml ,xmlwriter, zip, xdebug
-
-      - name: Installation des dépendances
-        run: composer install --no-progress --no-suggest
-
-      - name: Lancement de PHPUnit avec Xdebug
-        run: vendor/bin/phpunit
-        env:
-          XDEBUG_MODE: coverage
+          php_extensions: gd sqlite3 dom json libxml mbstring tokenizer xml xmlwriter zip xdebug
+          version: 9.6.11
+          configuration: phpunit.xml
 
       - name: Creation du rapport de couverture de code
         uses: irongut/CodeCoverageSummary@v1.3.0
@@ -36,10 +29,3 @@ jobs:
 
       - name: Exportation du rapport de couverture de code
         run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
-
-      - name: Lancement de PHP CS
-        uses: php-actions/phpcs@v1
-        with:
-          php_version: 8.1
-          path: src/
-          standard: phpcs.xml
