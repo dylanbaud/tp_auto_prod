@@ -12,15 +12,18 @@ Trigger des actions :
 
 L'action est déclenchée à chaque push ou pull request (ligne on).
 Cela garantit que les tests sont exécutés automatiquement à chaque modification du code.
+
 Environnement d'exécution :
 
 Le job utilise l'environnement ubuntu-latest (ligne runs-on), qui est une version récente d'Ubuntu préconfigurée par GitHub pour l'exécution des workflows.
+
 Étape de checkout :
 
 L'étape Checkout code utilise actions/checkout@v3 pour cloner le code source du dépôt Git dans l'environnement virtuel afin de l'exécuter.
 Installation des dépendances :
 
 composer install --no-progress --no-suggest installe les bibliothèques PHP nécessaires sans afficher d'informations superflues. Composer gère les dépendances du projet.
+
 Lancement de PHPUnit :
 
 php-actions/phpunit@v3 est une action qui exécute les tests unitaires via PHPUnit, avec les extensions PHP nécessaires pour les tests (gd, sqlite3, xdebug, etc.).
@@ -106,4 +109,14 @@ Nous n'avons pas eu de problème particulier sur cette partie car toutes ces act
 
 ## PARTIE 4 : Déploiement continu
 
+Le déploiement continu est une pratique essentielle qui permet d'automatiser le processus de mise à jour d'une application en production. Dans ce workflow GitHub, nous avons mis en place une action pour déployer notre code sur un serveur FTP chaque fois qu'il y a un push sur la branche main.
 
+Checkout du code : La première étape consiste à utiliser l'action actions/checkout@v2 pour cloner notre dépôt. Cela nous permet d'accéder à la dernière version de notre code.
+
+Déploiement via FTP : La deuxième étape utilise l'action SamKirkland/FTP-Deploy-Action@4.3.1. Cette étape est cruciale, car elle déploie réellement notre code sur le serveur FTP. Les informations d'identification (URL, nom d'utilisateur et mot de passe) sont stockées dans les secrets GitHub pour garantir la sécurité de nos données sensibles.
+
+local-dir spécifie le répertoire local à déployer, ici on utilise le répertoire courant.
+server-dir indique où déployer le code sur le serveur, ce qui est généralement le répertoire www/.
+exclude nous permet d'éviter d'envoyer des fichiers non nécessaires, comme ceux liés à Git ou des fichiers de documentation.
+
+Lors de cette étape nous n'avons pas eu de difficulté particulière nous avons même été surpris de la rapidité pour effectuer cela. De plus, nous trouvons cela très utile de pouvoir directement deployer un projet via git seulement à l'aide d'un push dans la branche principale.
