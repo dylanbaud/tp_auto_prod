@@ -6,7 +6,6 @@
 
 ## PARTIE 1 : Tests
 
-```
 L'objectif principal de cette action est d'automatiser le processus de tests en utilisant PHPUnit, un framework de tests pour PHP. Voici les étapes détaillées de cette partie :
 
 Trigger des actions :
@@ -30,11 +29,9 @@ La version 9.6.11 de PHPUnit est spécifiée, avec la configuration provenant de
 Difficulté rencontré :
 
 Sur cette étape, nous n'avons pas eu tant de difficulté. La difficulté principale a été d'installer les extensions nécessaires pour permettre aux tests de pouvoir être correct. La deuxième difficulté a été de trouver la version correcte des extension compatible avec notre version de PHP.
-```
 
 ## PARTIE 2 : Coverage
 
-```
 Cette partie du pipeline concerne la génération d'un rapport de couverture de code, essentiel pour visualiser quelles parties du code sont couvertes par les tests.
 
 Xdebug pour la couverture :
@@ -58,30 +55,26 @@ Cette étape a été l'étape ou l'on a eu le plus de difficulté :
 - Le fichier cobertura.xml ne voulait pas être trouvé par l'action car il n'était pas defini dans le phpunit.xml
 - L'utilisation de irongut/CodeCoverageSummary@v1.3.0 a été assez complexe à comprendre
 - On avait oublié d'ajouter le mode coverage dans XDEBUG_MODE
-```
 
 ## PARTIE 3 : Linting
 
-```
 La partie linting consiste à analyser statiquement le code pour détecter les erreurs de style, les violations des bonnes pratiques de programmation ou les problèmes potentiels avant même l'exécution des tests. Voici comment cette étape est intégrée dans le pipeline d'intégration continue en utilisant trois outils de linting populaires pour PHP : PHPStan, PHP Mess Detector (PHPMD) et PHP Code Sniffer (PHPCS).
-```
 
-## A. PHPStan - Analyse statique de code :
+### A. PHPStan - Analyse statique de code :
 
-```
 Objectif : PHPStan est un outil d'analyse statique qui vérifie le code PHP pour détecter les erreurs possibles sans l'exécuter. Il signale les types d'erreurs comme les fautes de syntaxe ou les appels de méthodes sur des objets incorrects.
 
+```
 - name: PHP Stan
   uses: php-actions/phpstan@v3
   with:
     path: ./
+```
 
 Fonctionnement : Cette étape exécute PHPStan sur l'ensemble du code (path: ./), assurant que le code respecte les règles définies pour éviter les erreurs de typage et autres problèmes.
-```
 
-## B. PHP Mess Detector (PHPMD) - Détection de code mal structuré :
+### B. PHP Mess Detector (PHPMD) - Détection de code mal structuré :
 
-```
 Objectif : PHPMD analyse le code à la recherche de mauvaises pratiques et de failles dans la qualité du code, comme les classes trop complexes, les méthodes inutilisées ou les conventions de nommage non respectées.
 
 - name: PHP Mess Detector
@@ -90,11 +83,9 @@ Objectif : PHPMD analyse le code à la recherche de mauvaises pratiques et de fa
     path: ./
 
 Fonctionnement : Cette étape lance PHPMD sur l'ensemble du projet pour détecter les problèmes de conception et de structure.
-```
 
-## C. PHP Code Sniffer (PHPCS) - Respect des standards de codage :
+### C. PHP Code Sniffer (PHPCS) - Respect des standards de codage :
 
-```
 Objectif : PHPCS vérifie que le code respecte des standards de codage spécifiques, tels que PSR-12 (PHP Standards Recommendations). Il assure la cohérence du style de codage dans tout le projet.
 
 - name: PHP Code Sniffer
@@ -103,22 +94,12 @@ Objectif : PHPCS vérifie que le code respecte des standards de codage spécifiq
     path: ./
 
 Fonctionnement : PHPCS vérifie tout le code source et signale les violations des conventions de codage. Cela aide à maintenir un style de code uniforme.
-```
 
-## D. Conclusion
+### D. Conclusion
 
-```
 Ces trois outils assurent que le code est propre, bien structuré et conforme aux standards de l'industrie avant même d'exécuter les tests unitaires.
 Nous n'avons pas eu de problème particulier sur cette partie car toutes ces actions étaient assez bien documenté.
-```
 
 ## PARTIE 4 : Déploiement continu
 
-```
-
-```
-
-
-
-```
 
