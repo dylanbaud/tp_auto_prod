@@ -77,10 +77,12 @@ Fonctionnement : Cette étape exécute PHPStan sur l'ensemble du code (path: ./)
 
 Objectif : PHPMD analyse le code à la recherche de mauvaises pratiques et de failles dans la qualité du code, comme les classes trop complexes, les méthodes inutilisées ou les conventions de nommage non respectées.
 
+```
 - name: PHP Mess Detector
   uses: php-actions/phpmd@v1
   with:
     path: ./
+```
 
 Fonctionnement : Cette étape lance PHPMD sur l'ensemble du projet pour détecter les problèmes de conception et de structure.
 
@@ -88,10 +90,12 @@ Fonctionnement : Cette étape lance PHPMD sur l'ensemble du projet pour détecte
 
 Objectif : PHPCS vérifie que le code respecte des standards de codage spécifiques, tels que PSR-12 (PHP Standards Recommendations). Il assure la cohérence du style de codage dans tout le projet.
 
+```
 - name: PHP Code Sniffer
   uses: php-actions/phpcs@v1
   with:
     path: ./
+```
 
 Fonctionnement : PHPCS vérifie tout le code source et signale les violations des conventions de codage. Cela aide à maintenir un style de code uniforme.
 
