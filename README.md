@@ -4,29 +4,35 @@
 - Baudson Dylan
 - Pedretti Zack
 
-## 1. Les tests
+## PARTIE 1 : Tests
 
 ```
-Les actions GitHub permettent de déclencher des tests à partir de l'événement de notre choix (push, pull request, etc.). Ce système offre donc la possibilité de tester notre code à tout moment, et s'avère très utile pour continuer à maintenir et mettre à jour notre code.
+L'objectif principal de cette action est d'automatiser le processus de tests en utilisant PHPUnit, un framework de tests pour PHP. Voici les étapes détaillées de cette partie :
 
-Les différentes actions :
-actions/checkout@v3 :
-Cette action permet de cloner le dépôt Git dans l'environnement d'exécution. C'est une étape essentielle car elle rend le code source disponible pour les actions suivantes.
+Trigger des actions :
 
-php-actions/composer@v6 :
-Cette action exécute Composer, un gestionnaire de dépendances pour PHP. Elle installe les bibliothèques nécessaires définies dans le fichier composer.json du projet. Cela permet de s'assurer que toutes les dépendances sont installées avant de passer à l'étape suivante.
+L'action est déclenchée à chaque push ou pull request (ligne on).
+Cela garantit que les tests sont exécutés automatiquement à chaque modification du code.
+Environnement d'exécution :
 
-php-actions/phpunit@v3 :
-Cette action exécute PHPUnit, un framework de test pour PHP. Elle permet de lancer les tests automatisés définis dans le projet afin de vérifier que le code fonctionne correctement et n'introduit pas de régressions. Voici les principales configurations utilisées pour cette étape :
+Le job utilise l'environnement ubuntu-latest (ligne runs-on), qui est une version récente d'Ubuntu préconfigurée par GitHub pour l'exécution des workflows.
+Étape de checkout :
 
-    - php_extensions : Installe les extensions PHP nécessaires, telles que gd, mbstring, sqlite3, simplexml et xdebug (pour la couverture de code).
-    - configuration : Utilise le fichier phpunit.xml pour configurer PHPUnit, définissant les tests à exécuter et les options spécifiques.
-    - bootstrap : Spécifie le fichier Bootstrap.php situé dans le répertoire tst, exécuté avant les tests pour configurer l'environnement ou initialiser certaines ressources.
-    - version : Définit la version de PHPUnit utilisée, ici la version 9.
-    - php_version : Utilise PHP 8.1 pour exécuter les tests, garantissant que le projet est testé sur une version moderne de PHP.
+L'étape Checkout code utilise actions/checkout@v3 pour cloner le code source du dépôt Git dans l'environnement virtuel afin de l'exécuter.
+Installation des dépendances :
+
+composer install --no-progress --no-suggest installe les bibliothèques PHP nécessaires sans afficher d'informations superflues. Composer gère les dépendances du projet.
+Lancement de PHPUnit :
+
+php-actions/phpunit@v3 est une action qui exécute les tests unitaires via PHPUnit, avec les extensions PHP nécessaires pour les tests (gd, sqlite3, xdebug, etc.).
+La version 9.6.11 de PHPUnit est spécifiée, avec la configuration provenant de phpunit.xml, qui définit les règles et les spécificités des tests.
+
+Difficulté rencontré :
+
+Sur cette étape, nous n'avons pas eu tant de difficulté. La difficulté principale a été d'installer les extensions nécessaires pour permettre aux tests de pouvoir être correct. La deuxième difficulté a été de trouver la version correcte des extension compatible avec notre version de PHP.
 ```
 
-## 2. Code coverage
+## PARTIE 2 : Coverage
 
 ```
 
