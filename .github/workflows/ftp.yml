@@ -1,0 +1,25 @@
+name: FTP Deploy
+
+on:
+  push:
+    branches:
+      - main 
+
+jobs:
+  ftp-deploy:
+    name: Deploiement du site
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploiement du FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.3.1
+        with:
+          server: ${{ secrets.YOUR_URL }}  
+          username: ${{ secrets.YOUR_USERNAME }}
+          password: ${{ secrets.YOUR_PASSWORD }}
+          local-dir: './'                        
+          server-dir: 'www/'
+          exclude: "[ **/.git**, **/.git*/**, **/README.md, **/*.yml, vendor/**]"
