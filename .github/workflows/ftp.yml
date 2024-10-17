@@ -18,7 +18,7 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@4.3.1
         with:
           server: ${{ secrets.YOUR_URL }}  
-          username: ${{ secrets.YOUR_USERNAME }}
+          username: ${{ secrets.YOUR_USER }}
           password: ${{ secrets.YOUR_PASSWORD }}
           local-dir: './'                        
           server-dir: 'www/'
